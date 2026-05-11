@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <time.h>
+#include <ctype.h>   // for tolower()
 
 #ifdef _WIN32
 #include <windows.h>
@@ -9,6 +10,13 @@
 #else
 #include <unistd.h>
 #endif
+
+// Convert string to lowercase
+void toLowerCase(char str[]) {
+    for (int i = 0; str[i]; i++) {
+        str[i] = tolower(str[i]);
+    }
+}
 
 long getOffsetSeconds(const char *country) {
     if (strcmp(country, "india") == 0)
@@ -33,7 +41,10 @@ int main() {
     char country[50];
 
     printf("Enter country name: ");
-    scanf("%s", country);
+    scanf("%49s", country);
+
+    // Convert input to lowercase
+    toLowerCase(country);
 
     long offset = getOffsetSeconds(country);
 
